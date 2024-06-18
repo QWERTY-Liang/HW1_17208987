@@ -1,7 +1,8 @@
 ---
 title: "HW1_RJS_17208987"
 author: "Liang Tong"
-format: revealjs
+date: today
+format: beamer
 ---
 
 ## 1.Use `data.table` to read in the data and assign the correct class to the variables.
