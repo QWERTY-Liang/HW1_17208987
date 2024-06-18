@@ -14,7 +14,7 @@ The data I choose is:
 
 In this step I'll load required libraries and datasets
 
-```{r1}
+```{r 1}
 # load library
 library(data.table)
 library(ggplot2)
@@ -32,7 +32,7 @@ class(country1_DT$'#indicator+value+num')
 
 Assign the correct class to the variables, here the variable unit is correct: *numeric* for **'Value'** and *int* for **'Year'**
 
-```{r2}
+```{r 2}
 #reset names and check unit
  setnames(country1_DT, c("country_code", "country_name", "indicator_id", "indicator_name", "index_id", "index_name", "value", "year"))
   setnames(country2_DT, c("country_code", "country_name", "indicator_id", "indicator_name", "index_id", "index_name", "value", "year"))
@@ -41,7 +41,7 @@ Assign the correct class to the variables, here the variable unit is correct: *n
 
 ## 2. Merge the data data sets using `data.table`
 
-```{r3}
+```{r 3}
 # base R example， by=(); for data.table , .on(...)
 #print(colnames(country2_DT))
 
@@ -65,14 +65,14 @@ here show the variable names of the merged data sets:
     | 2   | Life Expectancy at Birth (years)       | le           |
     | 3   | Material footprint per capita (tonnes) | mf           |
 
-```{r4}
+```{r 4}
 #show the variable name
 print(colnames(merged_DT))
 ```
 
 Here we can see The mean,min and max for Ireland and China's **Expected Years of Schooling (years)** for past 33 years. Ireland has a much higher eys for the quick check.
 
-```{r5}
+```{r 5}
 #Ireland and China's gender mean In equality Index
 merged_DT[indicator_id=="eys", 
           .(eys_mean = mean(value),eys_min = min(value),eys_max = max(value), .N),
@@ -81,13 +81,13 @@ merged_DT[indicator_id=="eys",
 
 do the same for **Life Expectancy at Birth (years)** and **Material footprint per capita (tonnes)**. This time Ireland has a slightly higher le and a much higher mf in the past 33 years
 
-```{r6}
+```{r 6}
 merged_DT[indicator_id=="le", 
           .(le_mean = mean(value),le_min = min(value),le_max = max(value), .N),
           by= country_name]
 ```
 
-```{r7}
+```{r 7}
 merged_DT[indicator_id=="mf", 
           .(Gmf_mean = mean(value),mf_min = min(value),mf_max = max(value), .N),
           by= country_name]
@@ -97,7 +97,7 @@ merged_DT[indicator_id=="mf",
 
 compare **Expected Years of Schooling (years)** and rank it by year and country. we could find that both countries's year is increasing over the past 33 years
 
-```{r8}
+```{r 8}
 eys_IRL <- merged_DT[ country_name=="Ireland" & indicator_id=="eys",
                       .SD,
                       keyby=.(year,value)]
@@ -108,13 +108,13 @@ eys_IRL
 #eys_CHN
 ```
 
-```{r9}
+```{r 9}
 eys_CHN
 ```
 
 now analysis the **Life Expectancy at Birth (years).** This time get the same result but using different method-'keyby = TRUE'. sort using country list (China 33 then Ireland 33). we found that the life time is increasing , but Ireland is slightly higher than China
 
-```{r10}
+```{r 10}
 le_both <- merged_DT[ indicator_id=="le",
                       .SD,
                       by=.(country_name,year, value),
@@ -124,7 +124,7 @@ le_both
 
 For **Material footprint per capita (tonnes)**, I want to check data for **recent 24 years.** We can found that Ireland has a overall higher footprint. China 's is increase and Ireland's is increase then decreasing in recent 24 years
 
-```{r11}
+```{r 11}
 mf_both <- merged_DT[ indicator_id=="mf" & year>2000,
                       .SD,
                       by=.(country_name,year, value),
@@ -136,7 +136,7 @@ mf_both
 
 plot below comparing the **Expected Years of Schooling (in years)** between Ireland and China. The data shows that Ireland's overall schooling time is higher than China's. Notably, there is a significant jump around 1998 in Ireland. Additionally, both countries have shown an increasing trend in schooling time over the years.
 
-```{r12}
+```{r 12}
 #x <- eys_IRL$year
 #y1 <- eys_IRL$value
 #y2 <- eys_CHN$value
@@ -152,7 +152,7 @@ ggplot(merged_DT[indicator_id=="eys"], aes(x=year, y=value, shape=country_name))
 
 For **Life Expectancy at Birth (years)** I want to plot the box plot. We found that Ireland has a higher mean and median
 
-```{r13}
+```{r 13}
 ggplot(merged_DT[indicator_id=="le"], aes(x=country_name, y=value)) + 
     geom_boxplot(fill="slateblue", alpha=0.2) + 
     xlab("Country name")+
@@ -161,7 +161,7 @@ ggplot(merged_DT[indicator_id=="le"], aes(x=country_name, y=value)) +
 
 For **Material footprint per capita (tonnes)**, I want to plot the line chat
 
-```{r14}
+```{r 14}
 ggplot(merged_DT[indicator_id=="le"& year>2000], aes(x=year, y=value, group=country_name, color=country_name)) +
     geom_line()+
   ggtitle("Material footprint per capita (tonnes)-recent 24 years")
