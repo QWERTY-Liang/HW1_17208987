@@ -1,0 +1,31 @@
+---
+title: "Render_test"
+author: "Liang"
+format: html
+---
+
+## 1.Use data table to read in the data and assign the correct class to the variables.
+
+The data I choose is:
+
+1.  ***Human Development Indicators for Ireland***
+
+2.  ***Human Development Indicators for China***
+
+In this step I'll load required libraries and datasets
+
+```{r 1}
+# load library
+library(data.table)
+library(ggplot2)
+
+# load datasets, skip first row
+country1 <- fread("Human Development Indicators for Ireland2024.csv",skip=1)
+country2 <- fread("Human Development Indicators for China2024.csv",skip=1)
+
+
+# convert to data table format, good for large size
+country1_DT <- as.data.table(country1)
+country2_DT <- as.data.table(country2)
+class(country1_DT$'#indicator+value+num')
+```

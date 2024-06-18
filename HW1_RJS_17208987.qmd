@@ -2,7 +2,15 @@
 title: "HW1_RJS_17208987"
 author: "Liang Tong"
 date: today
-format: beamer
+format:
+  revealjs: 
+    slide-number: true
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
+fontsize: 19pt
 ---
 
 ## 1.Use `data.table` to read in the data and assign the correct class to the variables.
@@ -30,6 +38,8 @@ country1_DT <- as.data.table(country1)
 country2_DT <- as.data.table(country2)
 class(country1_DT$'#indicator+value+num')
 ```
+
+## 1.1
 
 Assign the correct class to the variables, here the variable unit is correct: *numeric* for **'Value'** and *int* for **'Year'**
 
@@ -71,6 +81,8 @@ here show the variable names of the merged data sets:
 print(colnames(merged_DT))
 ```
 
+## 3.1
+
 Here we can see The mean,min and max for Ireland and China's **Expected Years of Schooling (years)** for past 33 years. Ireland has a much higher eys for the quick check.
 
 ```{r 5}
@@ -79,6 +91,8 @@ merged_DT[indicator_id=="eys",
           .(eys_mean = mean(value),eys_min = min(value),eys_max = max(value), .N),
           by= country_name]
 ```
+
+## 3.2
 
 do the same for **Life Expectancy at Birth (years)** and **Material footprint per capita (tonnes)**. This time Ireland has a slightly higher le and a much higher mf in the past 33 years
 
@@ -109,9 +123,13 @@ eys_IRL
 #eys_CHN
 ```
 
+## 4. 1
+
 ```{r 9}
 eys_CHN
 ```
+
+## 4. 2
 
 now analysis the **Life Expectancy at Birth (years).** This time get the same result but using different method-'keyby = TRUE'. sort using country list (China 33 then Ireland 33). we found that the life time is increasing , but Ireland is slightly higher than China
 
@@ -122,6 +140,8 @@ le_both <- merged_DT[ indicator_id=="le",
                       keyby = TRUE]#same result
 le_both
 ```
+
+## 4. 3
 
 For **Material footprint per capita (tonnes)**, I want to check data for **recent 24 years.** We can found that Ireland has a overall higher footprint. China 's is increase and Ireland's is increase then decreasing in recent 24 years
 
@@ -151,6 +171,8 @@ ggplot(merged_DT[indicator_id=="eys"], aes(x=year, y=value, shape=country_name))
 
 ```
 
+## 5.1
+
 For **Life Expectancy at Birth (years)** I want to plot the box plot. We found that Ireland has a higher mean and median
 
 ```{r 13}
@@ -159,6 +181,8 @@ ggplot(merged_DT[indicator_id=="le"], aes(x=country_name, y=value)) +
     xlab("Country name")+
     ggtitle("Life Expectancy at Birth (years)")
 ```
+
+## 5.2
 
 For **Material footprint per capita (tonnes)**, I want to plot the line chat
 
