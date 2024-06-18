@@ -145,8 +145,8 @@ plot below comparing the **Expected Years of Schooling (in years)** between Irel
 library(hrbrthemes)
 ggplot(merged_DT[indicator_id=="eys"], aes(x=year, y=value, shape=country_name)) + 
     geom_point(size=6, color="lightblue") +
-    ggtitle("Expected Years of Schooling (years)") +
-    theme_ipsum()
+    ggtitle("Expected Years of Schooling (year)") #+
+    #theme_ipsum()
 
 
 ```
@@ -166,4 +166,6 @@ For **Material footprint per capita (tonnes)**, I want to plot the line chat
 ggplot(merged_DT[indicator_id=="le"& year>2000], aes(x=year, y=value, group=country_name, color=country_name)) +
     geom_line()+
   ggtitle("Material footprint per capita (tonnes)-recent 24 years")
+
+
 ```
