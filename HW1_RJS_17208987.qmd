@@ -4,9 +4,17 @@ author: "Liang Tong"
 format: revealjs
 ---
 
-## Quarto
+## Setups
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+The data I choose is:
+
+1.  *Human Development Indicators* for Ireland
+
+2.  *Human Development Indicators* for China
+
+```{r}
+
+```
 
 ## Bullets
 
