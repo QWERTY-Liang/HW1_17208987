@@ -122,6 +122,16 @@ le_both <- merged_DT[ indicator_id=="le",
 le_both
 ```
 
+For **Material footprint per capita (tonnes)**, I want to check data for **recent 24 years.** We can found that Ireland has a overall higher footprint. China 's is increase and Ireland's is increase then decreasing in recent 24 years
+
+```{r}
+mf_both <- merged_DT[ indicator_id=="mf" & year>2000,
+                      .SD,
+                      by=.(country_name,year, value),
+                      keyby = TRUE]
+mf_both
+```
+
 ## 5. Plotting
 
 plot below comparing the **Expected Years of Schooling (in years)** between Ireland and China. The data shows that Ireland's overall schooling time is higher than China's. Notably, there is a significant jump around 1998 in Ireland. Additionally, both countries have shown an increasing trend in schooling time over the years.
